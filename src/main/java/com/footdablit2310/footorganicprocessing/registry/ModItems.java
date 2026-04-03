@@ -19,9 +19,8 @@ public class ModItems {
     public static final ItemEntry<Item> WEAK_GLUE = REG
             .item("weak_glue", Item::new)
             .register();
-
-    public static final ItemEntry<Item> SAWDUST = REG
-            .item("sawdust", Item::new)
+    public static final ItemEntry<Item> RESIN = REG
+            .item("resin", Item::new)
             .register();
 
     public static void register() {}
