@@ -1,55 +1,28 @@
-##############################
 # Gradle
-##############################
 .gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
 
-# Ignore build folders inside subprojects
-**/build/
-
-##############################
-# IntelliJ IDEA
-##############################
-.idea/
-*.iws
-*.iml
-*.ipr
-out/
-
-##############################
-# Eclipse
-##############################
-.classpath
-.project
-.settings/
-.factorypath
-.apt_generated/
-bin/              # <--- added here
-**/bin/           # <--- and recursive, just in case
-
-##############################
-# VS Code
-##############################
+# IDEs
 .vscode/
+.idea/
+*.iml
 
-##############################
-# OS junk
-##############################
-.DS_Store
-
-##############################
-# Minecraft Modding
-##############################
-
-# NeoForge run directories
+# NeoForge runtime sandboxes
 run/
 runs/
-runs/**
+logs/
+crash-reports/
 
-# Generated data
-src/generated/
-**/src/generated/**/.cache/
+# Minecraft runtime junk
+mods/
+config/
+saves/
+options.txt
 
-# Local mod repo folder
-repo/
+# Generated launch configs
+*.launch
+*.run/
+
+# OS junk
+Thumbs.db
+.DS_Store
