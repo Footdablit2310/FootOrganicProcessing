@@ -45,6 +45,7 @@ bin/              # <--- added here
 # NeoForge run directories
 run/
 runs/
+runs/**
 
 # Generated data
 src/generated/
@@ -52,4 +53,4 @@ src/generated/
 
 # Local mod repo folder
 repo/
-!**/src/**/repo/
+
