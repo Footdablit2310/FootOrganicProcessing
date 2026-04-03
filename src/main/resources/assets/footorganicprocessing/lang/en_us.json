@@ -1,0 +1,13 @@
+{
+  "itemGroup.footorganicprocessing": "Example Mod Tab",
+  "block.footorganicprocessing.example_block": "Example Block",
+  "item.footorganicprocessing.example_item": "Example Item",
+
+  "footorganicprocessing.configuration.title": "Foot: Organic Processing Configs",
+  "footorganicprocessing.configuration.section.footorganicprocessing.common.toml": "Foot: Organic Processing Configs",
+  "footorganicprocessing.configuration.section.footorganicprocessing.common.toml.title": "Foot: Organic Processing Configs",
+  "footorganicprocessing.configuration.items": "Item List",
+  "footorganicprocessing.configuration.logDirtBlock": "Log Dirt Block",
+  "footorganicprocessing.configuration.magicNumberIntroduction": "Magic Number Text",
+  "footorganicprocessing.configuration.magicNumber": "Magic Number"
+}
