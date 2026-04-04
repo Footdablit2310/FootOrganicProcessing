@@ -18,6 +18,7 @@ public class FootBlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {}
+    protected void addTags(HolderLookup.Provider provider) {
+        // stub
+    }
 }
-
