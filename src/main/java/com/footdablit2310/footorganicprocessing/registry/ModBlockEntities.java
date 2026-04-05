@@ -26,4 +26,5 @@ public class ModBlockEntities {
                                     PtfBlockEntity::new,
                                     ModBlocks.PTF_CONTROLLER.get()
                             ).build(null));
+    
 }

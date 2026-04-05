@@ -54,6 +54,9 @@ public class ModItems {
 
     public static final DeferredHolder<Item, Item> CLEAN_OIL = ITEMS.register("clean_oil",
             () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ULTRA_STURDY_SHEET =
+            ITEMS.register("ultra_sturdy_sheet",
+                    () -> new Item(new Item.Properties()));
 
     //TODO:# revisit ModItems when adding fluids or block items
 }
