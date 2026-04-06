@@ -1,4 +1,4 @@
-package com.footdablit2310.footorganicprocessing.content.squeezer;
+package com.footdablit2310.footorganicprocessing.content.blocks.squeezer;
 
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;

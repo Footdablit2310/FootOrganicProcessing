@@ -1,62 +1,78 @@
 package com.footdablit2310.footorganicprocessing.registry;
 
 import com.footdablit2310.footorganicprocessing.FootOrganicProcessing;
-import net.minecraft.core.registries.Registries;
+import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModItems {
 
-    public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(Registries.ITEM, FootOrganicProcessing.MOD_ID);
+    public static final ItemEntry<Item> STICKY_RESIDUE =
+            FootOrganicProcessing.REGISTRATE.item("sticky_residue", Item::new)
+                    .properties(p -> p.stacksTo(64))
+                    .register();
 
-    // Organic
-    public static final DeferredHolder<Item, Item> BIOMASS = ITEMS.register("biomass",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> SPIRIT_GLUE =
+            FootOrganicProcessing.REGISTRATE.item("spirit_glue", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> RESIN = ITEMS.register("resin",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> TAR =
+            FootOrganicProcessing.REGISTRATE.item("tar", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> STICKY_RESIDUE = ITEMS.register("sticky_residue",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> AROMATICS =
+            FootOrganicProcessing.REGISTRATE.item("aromatics", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> SPIRIT_GLUE = ITEMS.register("spirit_glue",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> LIGHT_HYDROCARBONS =
+            FootOrganicProcessing.REGISTRATE.item("light_hydrocarbons", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> PLASTIC = ITEMS.register("plastic",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> CRACKED_GAS =
+            FootOrganicProcessing.REGISTRATE.item("cracked_gas", Item::new)
+                    .register();
 
-    // PTF / Chemical Outputs
-    public static final DeferredHolder<Item, Item> TAR = ITEMS.register("tar",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> CLEAN_OIL =
+            FootOrganicProcessing.REGISTRATE.item("clean_oil", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> SOOT = ITEMS.register("soot",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> METHANOL =
+            FootOrganicProcessing.REGISTRATE.item("methanol", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> AROMATICS = ITEMS.register("aromatics",
-            () -> new Item(new Item.Properties()));
+    // Industrial
+    public static final ItemEntry<Item> ULTRA_STURDY_SHEET =
+            FootOrganicProcessing.REGISTRATE.item("ultra_sturdy_sheet", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> LIGHT_HYDROCARBONS = ITEMS.register("light_hydrocarbons",
-            () -> new Item(new Item.Properties()));
+    // Coils
+    public static final ItemEntry<Item> COIL_T1 =
+            FootOrganicProcessing.REGISTRATE.item("coil_t1", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> SYNGAS = ITEMS.register("syngas",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> COIL_T2 =
+            FootOrganicProcessing.REGISTRATE.item("coil_t2", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> BIO_OIL = ITEMS.register("bio_oil",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> COIL_T3 =
+            FootOrganicProcessing.REGISTRATE.item("coil_t3", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> HYDROCARBONS = ITEMS.register("hydrocarbons",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> COIL_T3_R =
+            FootOrganicProcessing.REGISTRATE.item("coil_t3_r", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> CRACKED_GAS = ITEMS.register("cracked_gas",
-            () -> new Item(new Item.Properties()));
+    // Casings (item form only)
+    public static final ItemEntry<Item> CASING_T1 =
+            FootOrganicProcessing.REGISTRATE.item("casing_t1", Item::new)
+                    .register();
 
-    public static final DeferredHolder<Item, Item> CLEAN_OIL = ITEMS.register("clean_oil",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ULTRA_STURDY_SHEET =
-            ITEMS.register("ultra_sturdy_sheet",
-                    () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> CASING_T2 =
+            FootOrganicProcessing.REGISTRATE.item("casing_t2", Item::new)
+                    .register();
 
-    //TODO:# revisit ModItems when adding fluids or block items
+    public static final ItemEntry<Item> CASING_T3 =
+            FootOrganicProcessing.REGISTRATE.item("casing_t3", Item::new)
+                    .register();
+
+    public static void register() {}
 }

@@ -1,4 +1,4 @@
-package com.footdablit2310.footorganicprocessing.content.squeezer;
+package com.footdablit2310.footorganicprocessing.content.blocks.squeezer;
 
 import com.footdablit2310.footorganicprocessing.registry.ModMenus;
 import net.minecraft.world.entity.player.Inventory;

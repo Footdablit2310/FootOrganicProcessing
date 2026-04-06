@@ -1,11 +1,9 @@
-package com.footdablit2310.footorganicprocessing.content.squeezer;
+package com.footdablit2310.footorganicprocessing.content.blocks.squeezer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SqueezerModePacket {
 
@@ -26,13 +24,14 @@ public class SqueezerModePacket {
         return new SqueezerModePacket(buf.readBlockPos(), buf.readInt());
     }
 
-    public static void handle(SqueezerModePacket pkt, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            Level level = ctx.get().getSender().level();
+    public static void handle(SqueezerModePacket pkt, IPayloadContext ctx) {
+        ctx.enqueueWork(() -> {
+            Level level = ctx.player().level();
             if (level.getBlockEntity(pkt.pos) instanceof SqueezerBlockEntity be) {
-                be.setMode(pkt.mode == 0 ? SqueezerBlockEntity.SqueezerMode.SQUEEZING : SqueezerBlockEntity.SqueezerMode.COMPRESSING);
+                be.setMode(pkt.mode == 0
+                        ? SqueezerBlockEntity.SqueezerMode.SQUEEZING
+                        : SqueezerBlockEntity.SqueezerMode.COMPRESSING);
             }
         });
-        ctx.get().setPacketHandled(true);
     }
 }

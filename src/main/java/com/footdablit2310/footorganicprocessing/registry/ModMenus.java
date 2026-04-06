@@ -1,6 +1,6 @@
 package com.footdablit2310.footorganicprocessing.registry;
 
-import com.footdablit2310.footorganicprocessing.content.squeezer.SqueezerMenu;
+import com.footdablit2310.footorganicprocessing.content.blocks.squeezer.SqueezerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.network.IContainerFactory;
 import net.neoforged.neoforge.registries.DeferredRegister;
