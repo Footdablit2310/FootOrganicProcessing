@@ -28,7 +28,7 @@ sourceSets.main.resources {
 repositories {
     maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
     maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
-    maven { url = "https://api.modrinth.com/maven"} //FootLib
+    maven { url = "https://api.modrinth.com/maven"} // FootLib, but I use the local project dependency for developing FootLib and FootOrganicProcessing at the same time, never use anything other than the maven.
     maven { url = "https://maven.blamejared.com" } // JEI
 }
 
@@ -142,8 +142,10 @@ dependencies {
     compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
     runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
     implementation("com.tterrag.registrate:Registrate:${registrate_version}")
-    // FootLib
-    implementation("maven.modrinth:footlib:${footlib_version}")
+    // USE ONLY THE COMMENTED BELOW OTHERWISE YOU WILL BE BUGGED WITH ISSUES
+    // I will use a local project dependency so i can add features to both mods at the same time but DO NOT USE THE LOCAL DEPENDENCY FOR ANYTHING. IT'S ONLY FOR DUAL DEVELOPMENT.
+    // implementation("maven.modrinth:footlib:${footlib_version}")
+    implementation project(":") // Comment (or remove) this line and uncomment the line above to use the supported safe version of FootLib. 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"
