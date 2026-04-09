@@ -1,14 +1,12 @@
 package com.footdablit2310.footorganicprocessing.content.blocks.ptf;
 
-import com.footdablit2310.footorganicprocessing.registry.ModBlockEntities;
 import com.footdablit2310.footorganicprocessing.registry.ModItems;
 import com.footdablit2310.footorganicprocessing.content.items.ptf.CoilItem;
 import com.footdablit2310.footlib.api.common.NbtUtil;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,7 +15,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.capabilities.Capabilities;
 
 public class PTFControllerBlockEntity extends BlockEntity {
 
@@ -37,6 +34,9 @@ public class PTFControllerBlockEntity extends BlockEntity {
         super(type, pos, state);
     }
 
+    // -------------------------------------------------------------------------
+    // Tick Logic
+    // -------------------------------------------------------------------------
     public static void tick(Level level, BlockPos pos, BlockState state, PTFControllerBlockEntity be) {
         if (level.isClientSide) return;
 
@@ -95,7 +95,7 @@ public class PTFControllerBlockEntity extends BlockEntity {
     }
 
     // -------------------------------------------------------------------------
-    // Serialization (FootLib + NeoForge 1.21.1)
+    // Serialization (NeoForge 21.1)
     // -------------------------------------------------------------------------
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
@@ -106,24 +106,17 @@ public class PTFControllerBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag tag, HolderLookup.Provider provider) {
-        super.load(tag, provider);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
 
         NbtUtil.getItemHandler(tag, "Items", items, provider);
         NbtUtil.getEnergy(tag, "Energy", energy);
     }
 
     // -------------------------------------------------------------------------
-    // Capabilities (NeoForge 1.21.1)
+    // Capabilities (NeoForge 21.1)
     // -------------------------------------------------------------------------
-    @Override
-    public <T> T getCapability(net.neoforged.neoforge.capabilities.Capability<T> cap, Direction side) {
-        if (cap == Capabilities.ItemHandler.BLOCK) {
-            return cap.cast(items);
-        }
-        if (cap == Capabilities.EnergyStorage.BLOCK) {
-            return cap.cast(energy);
-        }
-        return null;
-    }
+    public ItemStackHandler getItemHandler() { return items; }
+    public EnergyStorage getEnergyStorage() { return energy; }
+
 }
