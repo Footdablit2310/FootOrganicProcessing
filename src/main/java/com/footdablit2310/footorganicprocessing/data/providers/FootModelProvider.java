@@ -22,14 +22,13 @@ public class FootModelProvider extends ItemModelProvider {
         basicItem(ModItems.STICKY_RESIDUE.get());
         basicItem(ModItems.PLASTIC.get());
         basicItem(ModItems.TAR.get());
-        basicItem(ModItems.SOOT.get());
+        basicItem(ModItems.METHANOL.get());
         basicItem(ModItems.AROMATICS.get());
         basicItem(ModItems.LIGHT_HYDROCARBONS.get());
-        basicItem(ModItems.SYNGAS.get());
-        basicItem(ModItems.BIO_OIL.get());
-        basicItem(ModItems.HYDROCARBONS.get());
         basicItem(ModItems.CRACKED_GAS.get());
-        basicItem(ModItems.CLEAN_OIL.get());
+        basicItem(ModItems.LIGHT_HYDROCARBONS.get());
+        basicItem(ModItems.CRACKED_GAS.get());
+        basicItem(ModItems.BIO_OIL.get());
 
         // Spirit Glue uses Create's super glue model
         withExistingParent(ModItems.SPIRIT_GLUE.getId().getPath(),

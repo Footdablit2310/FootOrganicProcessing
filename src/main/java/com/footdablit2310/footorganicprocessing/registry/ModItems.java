@@ -11,7 +11,18 @@ public class ModItems {
             FootOrganicProcessing.REGISTRATE.item("sticky_residue", Item::new)
                     .properties(p -> p.stacksTo(64))
                     .register();
-
+    public static final ItemEntry<Item> BIOMASS =
+            FootOrganicProcessing.REGISTRATE.item("biomass", Item::new)
+                    .properties(p -> p.stacksTo(64))
+                    .register();
+    public static final ItemEntry<Item> PLASTIC =
+            FootOrganicProcessing.REGISTRATE.item("plastic", Item::new)
+                    .properties(p -> p.stacksTo(64))
+                    .register();
+    public static final ItemEntry<Item> RESIN =
+            FootOrganicProcessing.REGISTRATE.item("resin", Item::new)
+                    .properties(p -> p.stacksTo(64))
+                    .register();
     public static final ItemEntry<Item> SPIRIT_GLUE =
             FootOrganicProcessing.REGISTRATE.item("spirit_glue", Item::new)
                     .register();
@@ -32,8 +43,8 @@ public class ModItems {
             FootOrganicProcessing.REGISTRATE.item("cracked_gas", Item::new)
                     .register();
 
-    public static final ItemEntry<Item> CLEAN_OIL =
-            FootOrganicProcessing.REGISTRATE.item("clean_oil", Item::new)
+    public static final ItemEntry<Item> BIO_OIL =
+            FootOrganicProcessing.REGISTRATE.item("bio_oil", Item::new)
                     .register();
 
     public static final ItemEntry<Item> METHANOL =
