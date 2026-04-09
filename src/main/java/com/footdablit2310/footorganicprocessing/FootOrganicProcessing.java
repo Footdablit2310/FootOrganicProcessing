@@ -1,6 +1,7 @@
 package com.footdablit2310.footorganicprocessing;
 
 import com.footdablit2310.footorganicprocessing.registry.ModBlocks;
+import com.footdablit2310.footorganicprocessing.datagen.FootOPDataGen;
 import com.footdablit2310.footorganicprocessing.registry.ModBlockEntities;
 import com.footdablit2310.footorganicprocessing.registry.ModItems;
 import com.tterrag.registrate.Registrate;
@@ -24,6 +25,7 @@ public class FootOrganicProcessing {
         ModBlocks.register();
         ModItems.register();
         ModBlockEntities.register();
+        modEventBus.addListener(FootOPDataGen::gatherData);
         //TODO: Register other content (e.g. containers, recipes, etc.) as needed
     }
 }
