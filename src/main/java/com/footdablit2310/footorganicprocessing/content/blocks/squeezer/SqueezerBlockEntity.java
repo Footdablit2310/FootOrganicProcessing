@@ -1,5 +1,6 @@
 package com.footdablit2310.footorganicprocessing.content.blocks.squeezer;
 
+import com.footdablit2310.footorganicprocessing.registry.ModBlockEntities;
 import com.footdablit2310.footorganicprocessing.registry.ModRecipeTypes;
 import com.footdablit2310.footorganicprocessing.content.recipes.SimpleRecipeInput;
 import com.footdablit2310.footorganicprocessing.content.recipes.SqueezerRecipe;
@@ -10,9 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-
 import java.util.Optional;
 
 public class SqueezerBlockEntity extends BlockEntity {
@@ -28,8 +27,8 @@ public class SqueezerBlockEntity extends BlockEntity {
 
     private SqueezerMode mode = SqueezerMode.SQUEEZING;
 
-    public SqueezerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+    public SqueezerBlockEntity(BlockPos pos, BlockState state) {
+    super(ModBlockEntities.SQUEEZER.get(), pos, state);
     }
 
     public void setMode(SqueezerMode mode) {
@@ -70,8 +69,8 @@ public class SqueezerBlockEntity extends BlockEntity {
     private Optional<RecipeHolder<SqueezerRecipe>> getCurrentRecipe(Level level) {
         SimpleRecipeInput input = new SimpleRecipeInput(inventory.getItem(0));
 
-        return level.getRecipeManager()
-                .getRecipeFor(ModRecipeTypes.SQUEEZER_RECIPE_TYPE.get(), input, level);
+        return level.getRecipeManager().getRecipeFor(ModRecipeTypes.SQUEEZER.get(), input, level);
+
     }
 
     // -----------------------------------------------------

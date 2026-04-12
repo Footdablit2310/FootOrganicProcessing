@@ -1,30 +1,30 @@
 package com.footdablit2310.footorganicprocessing.registry;
 
 import com.footdablit2310.footorganicprocessing.FootOrganicProcessing;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 
 public class ModFluids {
-    private static final CreateRegistrate REG = FootOrganicProcessing.REGISTRATE;
+    private static final Registrate REGISTRATE = FootOrganicProcessing.REGISTRATE;
 
     public static final FluidEntry<BaseFlowingFluid.Flowing> RESIN =
-            REG.standardFluid("resin")
+            REGISTRATE.fluid("resin")
                     .lang("Resin")
                     .register();
 
     public static final FluidEntry<BaseFlowingFluid.Flowing> HYDROCARBONS =
-            REG.standardFluid("hydrocarbons")
+            REGISTRATE.fluid("hydrocarbons")
                     .lang("Hydrocarbons")
                     .register();
 
     public static final FluidEntry<BaseFlowingFluid.Flowing> AROMATICS =
-            REG.standardFluid("aromatics")
+            REGISTRATE.fluid("aromatics")
                     .lang("Aromatics")
                     .register();
 
     public static final FluidEntry<BaseFlowingFluid.Flowing> SYNGAS =
-            REG.standardFluid("syngas")
+            REGISTRATE.fluid("syngas")
                     .lang("Syngas")
                     .register();
 

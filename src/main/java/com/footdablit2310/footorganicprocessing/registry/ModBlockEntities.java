@@ -6,6 +6,12 @@ import com.footdablit2310.footorganicprocessing.content.blocks.squeezer.Squeezer
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+
+import com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.CentrifugeRotorBlockEntity;
+
 public class ModBlockEntities {
 
     public static final Registrate REGISTRATE = FootOrganicProcessing.REGISTRATE;
@@ -20,6 +26,12 @@ public class ModBlockEntities {
                     .validBlocks(ModBlocks.SQUEEZER)
                     .register();
 
+    public static final BlockEntityEntry<CentrifugeRotorBlockEntity> CENTRIFUGE_ROTOR =
+            REGISTRATE.blockEntity("centrifuge_rotor",
+                    (BlockEntityType<CentrifugeRotorBlockEntity> type, BlockPos pos, BlockState state) ->
+                            new CentrifugeRotorBlockEntity(type, pos, state))
+                    .validBlocks(ModBlocks.CENTRIFUGE_ROTOR)
+                    .register();
 
     public static void register() {}
 }

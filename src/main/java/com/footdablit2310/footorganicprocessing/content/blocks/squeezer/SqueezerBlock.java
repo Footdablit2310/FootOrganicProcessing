@@ -17,7 +17,6 @@ public class SqueezerBlock extends Block implements EntityBlock {
         super(props);
     }
 
-    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new SqueezerBlockEntity(pos, state);
     }
@@ -29,7 +28,7 @@ public class SqueezerBlock extends Block implements EntityBlock {
     ) {
         if (level.isClientSide) return null;
 
-        return type == ModBlockEntities.SQUEEZER_BE.get()
+        return type == ModBlockEntities.SQUEEZER.get()
                 ? (lvl, pos, st, be) -> SqueezerBlockEntity.tick(lvl, pos, st, (SqueezerBlockEntity) be)
                 : null;
     }

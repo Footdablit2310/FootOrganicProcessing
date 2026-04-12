@@ -4,63 +4,66 @@ import com.footdablit2310.footorganicprocessing.FootOrganicProcessing;
 import com.footdablit2310.footorganicprocessing.content.items.ptf.CoilItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.item.Item;
+import com.tterrag.registrate.Registrate;
 
 public class ModItems {
+    public static final Registrate REGISTRATE = 
+        FootOrganicProcessing.REGISTRATE;
 
     public static final ItemEntry<Item> STICKY_RESIDUE =
-            FootOrganicProcessing.REGISTRATE.item("sticky_residue", Item::new)
+            REGISTRATE.item("sticky_residue", Item::new)
                     .properties(p -> p.stacksTo(64))
                     .register();
     public static final ItemEntry<Item> BIOMASS =
-            FootOrganicProcessing.REGISTRATE.item("biomass", Item::new)
+            REGISTRATE.item("biomass", Item::new)
                     .properties(p -> p.stacksTo(64))
                     .register();
     public static final ItemEntry<Item> PLASTIC =
-            FootOrganicProcessing.REGISTRATE.item("plastic", Item::new)
+            REGISTRATE.item("plastic", Item::new)
                     .properties(p -> p.stacksTo(64))
                     .register();
     public static final ItemEntry<Item> RESIN =
-            FootOrganicProcessing.REGISTRATE.item("resin", Item::new)
+            REGISTRATE.item("resin", Item::new)
                     .properties(p -> p.stacksTo(64))
                     .register();
     public static final ItemEntry<Item> SPIRIT_GLUE =
-            FootOrganicProcessing.REGISTRATE.item("spirit_glue", Item::new)
+            REGISTRATE.item("spirit_glue", Item::new)
                     .register();
 
     public static final ItemEntry<Item> TAR =
-            FootOrganicProcessing.REGISTRATE.item("tar", Item::new)
+            REGISTRATE.item("tar", Item::new)
                     .register();
 
     public static final ItemEntry<Item> AROMATICS =
-            FootOrganicProcessing.REGISTRATE.item("aromatics", Item::new)
+            REGISTRATE.item("aromatics", Item::new)
                     .register();
 
     public static final ItemEntry<Item> LIGHT_HYDROCARBONS =
-            FootOrganicProcessing.REGISTRATE.item("light_hydrocarbons", Item::new)
+            REGISTRATE.item("light_hydrocarbons", Item::new)
                     .register();
 
     public static final ItemEntry<Item> CRACKED_GAS =
-            FootOrganicProcessing.REGISTRATE.item("cracked_gas", Item::new)
+            REGISTRATE.item("cracked_gas", Item::new)
                     .register();
 
     public static final ItemEntry<Item> BIO_OIL =
-            FootOrganicProcessing.REGISTRATE.item("bio_oil", Item::new)
+            REGISTRATE.item("bio_oil", Item::new)
                     .register();
 
     public static final ItemEntry<Item> METHANOL =
-            FootOrganicProcessing.REGISTRATE.item("methanol", Item::new)
+            REGISTRATE.item("methanol", Item::new)
                     .register();
 
     // Industrial
     public static final ItemEntry<Item> ULTRA_STURDY_SHEET =
-            FootOrganicProcessing.REGISTRATE.item("ultra_sturdy_sheet", Item::new)
+            REGISTRATE.item("ultra_sturdy_sheet", Item::new)
                     .register();
 
     // -------------------------------------------------------------------------
     // COILS (F3)
     // -------------------------------------------------------------------------
 
-    public static final ItemEntry<CoilItem> COIL_T1_H = FootOrganicProcessing.REGISTRATE.item("coil_t1_h", props ->
+    public static final ItemEntry<CoilItem> COIL_T1_H = REGISTRATE.item("coil_t1_h", props ->
             new CoilItem(props,
                     1000,      // durability
                     750,       // heat output
@@ -69,7 +72,7 @@ public class ModItems {
             )
     ).register();
 
-    public static final ItemEntry<CoilItem> COIL_T2_SH = FootOrganicProcessing.REGISTRATE.item("coil_t2_sh", props ->
+    public static final ItemEntry<CoilItem> COIL_T2_SH = REGISTRATE.item("coil_t2_sh", props ->
             new CoilItem(props,
                     1500,
                     1500,
@@ -78,7 +81,7 @@ public class ModItems {
             )
     ).register();
 
-    public static final ItemEntry<CoilItem> COIL_T3_UH = FootOrganicProcessing.REGISTRATE.item("coil_t3_uh", props ->
+    public static final ItemEntry<CoilItem> COIL_T3_UH = REGISTRATE.item("coil_t3_uh", props ->
             new CoilItem(props,
                     2000,
                     3000,
@@ -87,7 +90,7 @@ public class ModItems {
             )
     ).register();
 
-    public static final ItemEntry<CoilItem> COIL_T3R_UH_R = FootOrganicProcessing.REGISTRATE.item("coil_t3r_uh_r", props ->
+    public static final ItemEntry<CoilItem> COIL_T3R_UH_R = REGISTRATE.item("coil_t3r_uh_r", props ->
             new CoilItem(props,
                     4000,
                     3000,
@@ -98,15 +101,15 @@ public class ModItems {
 
     // Casings (item form only)
     public static final ItemEntry<Item> CASING_T1 =
-            FootOrganicProcessing.REGISTRATE.item("casing_t1", Item::new)
+            REGISTRATE.item("casing_t1", Item::new)
                     .register();
 
     public static final ItemEntry<Item> CASING_T2 =
-            FootOrganicProcessing.REGISTRATE.item("casing_t2", Item::new)
+            REGISTRATE.item("casing_t2", Item::new)
                     .register();
 
     public static final ItemEntry<Item> CASING_T3 =
-            FootOrganicProcessing.REGISTRATE.item("casing_t3", Item::new)
+            REGISTRATE.item("casing_t3", Item::new)
                     .register();
 
     public static void register() {}

@@ -7,6 +7,7 @@ import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
+import com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.*;
 
 public class ModBlocks {
 
@@ -71,6 +72,26 @@ public class ModBlocks {
                     .properties(p -> p
                             .mapColor(MapColor.COLOR_BLACK)
                             .strength(6.0F))
+                    .simpleItem()
+                    .register();
+    public static final BlockEntry<CentrifugeCasingBlock> CENTRIFUGE_CASING =
+            REGISTRATE.block("centrifuge_casing", CentrifugeCasingBlock::new)
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<CentrifugeRotorBlock> CENTRIFUGE_ROTOR =
+            REGISTRATE.block("centrifuge_rotor", CentrifugeRotorBlock::new)
+                .simpleItem()
+                .register();
+
+
+    public static final BlockEntry<CentrifugeInputHatchBlock> CENTRIFUGE_INPUT_HATCH =
+            REGISTRATE.block("centrifuge_input_hatch", CentrifugeInputHatchBlock::new)
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<CentrifugeHeatPortBlock> CENTRIFUGE_HEAT_PORT =
+            REGISTRATE.block("centrifuge_heat_port", CentrifugeHeatPortBlock::new)
                     .simpleItem()
                     .register();
 

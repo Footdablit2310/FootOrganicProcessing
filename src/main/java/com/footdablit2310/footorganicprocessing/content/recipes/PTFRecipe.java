@@ -48,13 +48,14 @@ public class PTFRecipe implements Recipe<RecipeInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.PTF_SERIALIZER.get();
+    return ModRecipeTypes.PTF_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ModRecipeTypes.PTF_RECIPE_TYPE.get();
+    return ModRecipeTypes.PTF.get();
     }
+
 
     public static class Serializer implements RecipeSerializer<PTFRecipe> {
 

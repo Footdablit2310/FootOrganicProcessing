@@ -46,8 +46,9 @@ public class SqueezerRecipe implements Recipe<RecipeInput> {
 
     @Override
     public RecipeType<?> getType() {
-        return ModRecipeTypes.SQUEEZER_RECIPE_TYPE.get();
+        return ModRecipeTypes.SQUEEZER.get();
     }
+
 
     public static class Serializer implements RecipeSerializer<SqueezerRecipe> {
 
