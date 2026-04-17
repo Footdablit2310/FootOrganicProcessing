@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import com.footdablit2310.footorganicprocessing.content.blocks.casing.CasingBlockEntity;
 import com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.CentrifugeRotorBlockEntity;
 
 public class ModBlockEntities {
@@ -32,6 +33,16 @@ public class ModBlockEntities {
                             new CentrifugeRotorBlockEntity(type, pos, state))
                     .validBlocks(ModBlocks.CENTRIFUGE_ROTOR)
                     .register();
+    public static final BlockEntityEntry<CasingBlockEntity> CASING =
+        REGISTRATE.blockEntity("casing", CasingBlockEntity::new)
+                .validBlocks(
+                        ModBlocks.CASING_T1,
+                        ModBlocks.CASING_T2,
+                        ModBlocks.CASING_T3
+                )
+                .register();
+
+
 
     public static void register() {}
 }

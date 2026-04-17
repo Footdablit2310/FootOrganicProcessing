@@ -18,7 +18,7 @@ public class SqueezerBlock extends Block implements EntityBlock {
     }
 
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SqueezerBlockEntity(pos, state);
+        return ModBlockEntities.SQUEEZER.get().create(pos, state);
     }
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
