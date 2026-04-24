@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import com.footdablit2310.footorganicprocessing.content.blocks.casing.CasingBlockEntity;
-import com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.CentrifugeRotorBlockEntity;
+import com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.CentrifugeBlockEntity;
 
 public class ModBlockEntities {
 
@@ -27,12 +27,12 @@ public class ModBlockEntities {
                     .validBlocks(ModBlocks.SQUEEZER)
                     .register();
 
-    public static final BlockEntityEntry<CentrifugeRotorBlockEntity> CENTRIFUGE_ROTOR =
-            REGISTRATE.blockEntity("centrifuge_rotor",
-                    (BlockEntityType<CentrifugeRotorBlockEntity> type, BlockPos pos, BlockState state) ->
-                            new CentrifugeRotorBlockEntity(type, pos, state))
-                    .validBlocks(ModBlocks.CENTRIFUGE_ROTOR)
+    public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE =
+            REGISTRATE.blockEntity("centrifuge", CentrifugeBlockEntity::new)
+                    .validBlocks(ModBlocks.CENTRIFUGE)
                     .register();
+
+
     public static final BlockEntityEntry<CasingBlockEntity> CASING =
         REGISTRATE.blockEntity("casing", CasingBlockEntity::new)
                 .validBlocks(

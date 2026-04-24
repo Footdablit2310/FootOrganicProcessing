@@ -1,114 +1,101 @@
 package com.footdablit2310.footorganicprocessing.content.blocks.ptf;
 
+import com.footdablit2310.footlib.api.shared.foot_organic_processing.ptf.IPTFTier;
+import com.footdablit2310.footlib.api.shared.foot_organic_processing.ptf.PTFTierRegistry;
 import com.footdablit2310.footorganicprocessing.content.blocks.casing.CasingBlockEntity;
-import com.footdablit2310.footorganicprocessing.registry.ModBlocks;
-import com.footdablit2310.footorganicprocessing.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.Item;
 
-public class PTFStructureHelper {
+public final class PTFStructureHelper {
 
-    // Casing blocks
-    private static final Block CASING_T1 = ModBlocks.CASING_T1.get();
-    private static final Block CASING_T2 = ModBlocks.CASING_T2.get();
-    private static final Block CASING_T3 = ModBlocks.CASING_T3.get();
+    private PTFStructureHelper() {}
 
-    // Coil items
-    private static final Item COIL_T1 = ModItems.COIL_T1_H.get();
-    private static final Item COIL_T2 = ModItems.COIL_T2_SH.get();
-    private static final Item COIL_T3 = ModItems.COIL_T3_UH.get();
-    private static final Item COIL_T3R = ModItems.COIL_T3R_UH_R.get();
+    /**
+     * Detects which PTF tier this multiblock matches.
+     * Controller is ONE BLOCK BELOW the multiblock center.
+     */
+    public static IPTFTier detectTier(Level level, BlockPos controllerPos) {
 
-    public static boolean validateStructure(Level level, BlockPos controllerPos) {
-        return detectTier(level, controllerPos) != null;
-    }
+        // The actual multiblock center is above the controller
+        BlockPos center = controllerPos.above();
 
-    public static PTFTier detectTier(Level level, BlockPos controllerPos) {
-
-        for (PTFTier tier : new PTFTier[]{
-                PTFTier.TIER_6,
-                PTFTier.TIER_5,
-                PTFTier.TIER_4,
-                PTFTier.TIER_3,
-                PTFTier.TIER_2,
-                PTFTier.TIER_1
-        }) {
-            if (matchesTier(level, controllerPos, tier)) {
+        // Try all registered tiers from FootLib
+        for (IPTFTier tier : PTFTierRegistry.all()) {
+            if (matchesTier(level, center, tier)) {
                 return tier;
             }
         }
 
-        return null;
+        return null; // no tier matched
     }
 
-    private static boolean matchesTier(Level level, BlockPos controllerPos, PTFTier tier) {
+    /**
+     * Checks if the multiblock at the given center matches the given tier.
+     */
+    private static boolean matchesTier(Level level, BlockPos center, IPTFTier tier) {
 
         int grid = tier.gridSize();
         int radius = grid / 2;
 
-        int heated = 0;
-        int superheated = 0;
-        int ultraheated = 0;
+        int heatedCount = 0;
+        int shCount = 0;
+        int uhCount = 0;
 
-        int casingTier = 0;
-
+        // Scan the grid
         for (int dx = -radius; dx <= radius; dx++) {
             for (int dz = -radius; dz <= radius; dz++) {
 
-                BlockPos pos = controllerPos.offset(dx, 0, dz);
-                BlockState state = level.getBlockState(pos);
-                Block block = state.getBlock();
-
-                // Only casings matter
-                if (!isCasing(block)) continue;
-
-                casingTier = Math.max(casingTier, getCasingTier(block));
-
-                // Check coil inside casing BE
+                BlockPos pos = center.offset(dx, 0, dz);
                 BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof CasingBlockEntity casingBE) {
 
-                Item coil = casingBE.getCoilItem();
+                // Must be a casing
+                if (!(be instanceof CasingBlockEntity casing)) {
+                    return false;
+                }
 
-                if (coil == COIL_T1) heated++;
-                else if (coil == COIL_T2) superheated++;
-                else if (coil == COIL_T3 || coil == COIL_T3R) ultraheated++;
+                // Must have a coil
+                if (!casing.hasCoil()) {
+                    return false;
+                }
+
+                // Determine coil heat class
+                CoilHeatClass heat = classifyCoil(casing);
+
+                switch (heat) {
+                    case HEATED -> heatedCount++;
+                    case SUPERHEATED -> shCount++;
+                    case ULTRAHEATED -> uhCount++;
+                    default -> { return false; }
+                }
             }
         }
 
-        // Validate coil counts
-        if (heated != tier.heatedZones()) return false;
-        if (superheated != tier.superheatedZones()) return false;
-        if (ultraheated != tier.ultraheatedZones()) return false;
-
-        // Validate casing heat resistance
-        if (!casingSupportsTier(tier, casingTier)) return false;
-
-        return true;
-        }
+        // Compare counts to tier requirements
+        return heatedCount == tier.heatedZones()
+                && shCount == tier.superheatedZones()
+                && uhCount == tier.ultraheatedZones();
     }
 
-    private static boolean isCasing(Block block) {
-        return block == CASING_T1 || block == CASING_T2 || block == CASING_T3;
+    /**
+     * Classifies a coil into HEATED / SUPERHEATED / ULTRAHEATED.
+     * Replace with your actual coil items.
+     */
+    private static CoilHeatClass classifyCoil(CasingBlockEntity casing) {
+        // TODO: Replace with your actual coil item checks
+        // Example:
+        // ItemStack stack = casing.getCoilStack();
+        // if (stack.is(ModItems.PTF_COIL_T1.get())) return CoilHeatClass.HEATED;
+        // if (stack.is(ModItems.PTF_COIL_T2.get())) return CoilHeatClass.SUPERHEATED;
+        // if (stack.is(ModItems.PTF_COIL_T3.get())) return CoilHeatClass.ULTRAHEATED;
+
+        return CoilHeatClass.INVALID;
     }
 
-    private static int getCasingTier(Block block) {
-        if (block == CASING_T1) return 1;
-        if (block == CASING_T2) return 2;
-        if (block == CASING_T3) return 3;
-        return 0;
-    }
-
-    private static boolean casingSupportsTier(PTFTier tier, int casingTier) {
-        return switch (tier.outputTier()) {
-            case HEATED -> casingTier >= 1;
-            case SUPERHEATED -> casingTier >= 2;
-            case ULTRAHEATED -> casingTier >= 3;
-            default -> false;
-        };
+    private enum CoilHeatClass {
+        HEATED,
+        SUPERHEATED,
+        ULTRAHEATED,
+        INVALID
     }
 }

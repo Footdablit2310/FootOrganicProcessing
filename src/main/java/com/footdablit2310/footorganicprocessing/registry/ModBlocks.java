@@ -74,24 +74,9 @@ public class ModBlocks {
                             .strength(6.0F))
                     .simpleItem()
                     .register();
-    public static final BlockEntry<CentrifugeCasingBlock> CENTRIFUGE_CASING =
-            REGISTRATE.block("centrifuge_casing", CentrifugeCasingBlock::new)
-                    .simpleItem()
-                    .register();
 
-    public static final BlockEntry<CentrifugeRotorBlock> CENTRIFUGE_ROTOR =
-            REGISTRATE.block("centrifuge_rotor", CentrifugeRotorBlock::new)
-                .simpleItem()
-                .register();
-
-
-    public static final BlockEntry<CentrifugeInputHatchBlock> CENTRIFUGE_INPUT_HATCH =
-            REGISTRATE.block("centrifuge_input_hatch", CentrifugeInputHatchBlock::new)
-                    .simpleItem()
-                    .register();
-
-    public static final BlockEntry<CentrifugeHeatPortBlock> CENTRIFUGE_HEAT_PORT =
-            REGISTRATE.block("centrifuge_heat_port", CentrifugeHeatPortBlock::new)
+    public static final BlockEntry<CentrifugeBlock> CENTRIFUGE =
+            REGISTRATE.block("centrifuge", CentrifugeBlock::new)
                     .simpleItem()
                     .register();
 
