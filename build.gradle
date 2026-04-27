@@ -89,30 +89,7 @@ runs {
         arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
-processResources {
-    // By default, Gradle does not consider changes to resources as something that should trigger a re-run of the processResources task.
-    // This is a problem for us, as we often change resources without changing any source files, and we need those changes to be included in the final jar.
-    // By adding all resources as inputs to the processResources task, we ensure that any change to a resource will trigger a re-run of the task and include the updated resource in the final jar.
-    inputs.files sourceSets.main.resources
-    expand(
-            // These properties are available in resources using ${} syntax. For example, ${mod_id} will be replaced with the value of mod_id.
-            // This is especially useful for including mod properties in the neoforge.mods.toml file.
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            loader_version_range   : loader_version_range,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            create_version         : create_version,
-            ponder_version         : ponder_version,
-            flywheel_version       : flywheel_version,
-            registrate_version     : registrate_version,
-            footlib_version        : footlib_version,
-            jei_version            : jei_version
-    )
-}
+
 // Sets up a dependency configuration called 'localRuntime'.
 // This configuration should be used instead of 'runtimeOnly' to declare
 // a dependency that will be present for runtime testing but that is
@@ -176,6 +153,12 @@ tasks.withType(ProcessResources).configureEach {
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
+            create_version         : create_version,
+            ponder_version         : ponder_version,
+            flywheel_version       : flywheel_version,
+            registrate_version     : registrate_version,
+            footlib_version        : footlib_version,
+            jei_version            : jei_version
     ]
     inputs.properties replaceProperties
 
