@@ -30,30 +30,6 @@ public class ModItems {
             REGISTRATE.item("spirit_glue", Item::new)
                     .register();
 
-    public static final ItemEntry<Item> TAR =
-            REGISTRATE.item("tar", Item::new)
-                    .register();
-
-    public static final ItemEntry<Item> AROMATICS =
-            REGISTRATE.item("aromatics", Item::new)
-                    .register();
-
-    public static final ItemEntry<Item> LIGHT_HYDROCARBONS =
-            REGISTRATE.item("light_hydrocarbons", Item::new)
-                    .register();
-
-    public static final ItemEntry<Item> CRACKED_GAS =
-            REGISTRATE.item("cracked_gas", Item::new)
-                    .register();
-
-    public static final ItemEntry<Item> BIO_OIL =
-            REGISTRATE.item("bio_oil", Item::new)
-                    .register();
-
-    public static final ItemEntry<Item> METHANOL =
-            REGISTRATE.item("methanol", Item::new)
-                    .register();
-
     // Industrial
     public static final ItemEntry<Item> ULTRA_STURDY_SHEET =
             REGISTRATE.item("ultra_sturdy_sheet", Item::new)

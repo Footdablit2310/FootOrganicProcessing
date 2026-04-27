@@ -27,6 +27,10 @@ public class ModFluids {
             REGISTRATE.fluid("syngas")
                     .lang("Syngas")
                     .register();
+    public static final FluidEntry<BaseFlowingFluid.Flowing> BIOOIL =
+            REGISTRATE.fluid("bio_oil")
+                    .lang("Bio Oil")
+                    .register();
 
     public static void register() {}
 }

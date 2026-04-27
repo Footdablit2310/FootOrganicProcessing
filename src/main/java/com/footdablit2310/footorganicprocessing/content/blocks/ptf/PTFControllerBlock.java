@@ -1,42 +1,37 @@
 package com.footdablit2310.footorganicprocessing.content.blocks.ptf;
 
-import com.footdablit2310.footorganicprocessing.registry.ModBlockEntities;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PTFControllerBlock extends Block implements EntityBlock {
+public class PTFControllerBlock extends BaseEntityBlock {
 
     public PTFControllerBlock(Properties props) {
         super(props);
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new PTFControllerBlockEntity(ModBlockEntities.PTF_CONTROLLER.get(), pos, state);
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
-            Level level,
-            BlockState state,
-            BlockEntityType<T> type
-    ) {
-        if (level.isClientSide) {
-            return null;
-        }
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new PTFControllerBlockEntity(pos, state);
+    }
 
-        if (type == ModBlockEntities.PTF_CONTROLLER.get()) {
-            return (lvl, pos, st, be) ->
-                    PTFControllerBlockEntity.tick(lvl, pos, st, (PTFControllerBlockEntity) be);
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos,
+                                net.minecraft.world.level.block.Block block,
+                                BlockPos fromPos, boolean isMoving) {
+        if (!level.isClientSide) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof PTFControllerBlockEntity controller) {
+                controller.onRedstoneUpdated();
+            }
         }
-
-        return null;
     }
 }

@@ -3,15 +3,10 @@ package com.footdablit2310.footorganicprocessing.registry;
 import com.footdablit2310.footorganicprocessing.FootOrganicProcessing;
 import com.footdablit2310.footorganicprocessing.content.blocks.ptf.PTFControllerBlockEntity;
 import com.footdablit2310.footorganicprocessing.content.blocks.squeezer.SqueezerBlockEntity;
-import com.tterrag.registrate.Registrate;
-import com.tterrag.registrate.util.entry.BlockEntityEntry;
-
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-
 import com.footdablit2310.footorganicprocessing.content.blocks.casing.CasingBlockEntity;
 import com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.CentrifugeBlockEntity;
+import com.tterrag.registrate.Registrate;
+import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 public class ModBlockEntities {
 

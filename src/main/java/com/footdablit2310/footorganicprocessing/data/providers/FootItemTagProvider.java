@@ -10,7 +10,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.footdablit2310.footorganicprocessing.registry.ModItems;
+import com.footdablit2310.footorganicprocessing.registry.*;
 
 public class FootItemTagProvider extends ItemTagsProvider {
 
@@ -38,16 +38,7 @@ public class FootItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("footorganicprocessing", "chemicals")))
             .add(ModItems.RESIN.get())
             .add(ModItems.STICKY_RESIDUE.get())
-            .add(ModItems.PLASTIC.get())
-            .add(ModItems.TAR.get())
-            .add(ModItems.SOOT.get())
-            .add(ModItems.AROMATICS.get())
-            .add(ModItems.LIGHT_HYDROCARBONS.get())
-            .add(ModItems.SYNGAS.get())
-            .add(ModItems.BIO_OIL.get())
-            .add(ModItems.HYDROCARBONS.get())
-            .add(ModItems.CRACKED_GAS.get())
-            .add(ModItems.CLEAN_OIL.get());
+            .add(ModItems.PLASTIC.get());
     }
 
 }
