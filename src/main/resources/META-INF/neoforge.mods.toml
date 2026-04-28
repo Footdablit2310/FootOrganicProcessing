@@ -14,7 +14,7 @@ description = "A NeoForge mod."
 [[dependencies.${mod_id}]]
 modId = "neoforge"
 type = "required"
-versionRange = "[${neo_version},)"
+versionRange = "[21.1.219, 21.1.299)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -36,13 +36,14 @@ versionRange = "[6.0.10, 6.1.0)"
 ordering = "NONE"
 side = "BOTH"
 
-# FootLib (from Modrinth)
+# FootLib (My API)
 [[dependencies.${mod_id}]]
 modId = "footlib"
 type = "required"
-versionRange = "[${footlib_version},)"
+versionRange = "[0.0.1.1, 1.0.0.0)"
 ordering = "NONE"
 side = "BOTH"
+reason="This allows for every Util to work and the entire API."
 
 # JEI(Just Enough Items)
 [[dependencies.${mod_id}]]
