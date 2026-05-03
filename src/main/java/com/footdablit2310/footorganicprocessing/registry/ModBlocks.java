@@ -32,11 +32,6 @@ public final class ModBlocks {
                     .simpleItem()
                     .register();
 
-    public static final BlockEntry<Block> CENTRIFUGE =
-            REGISTRATE.block("centrifuge", Block::new)
-                    .properties(p -> p.strength(10f).mapColor(MapColor.COLOR_LIGHT_GRAY))
-                    .simpleItem()
-                    .register();
     public static final BlockEntry<Block> CASING_T1 =
             REGISTRATE.block("casing_t1", Block::new)
                     .simpleItem()

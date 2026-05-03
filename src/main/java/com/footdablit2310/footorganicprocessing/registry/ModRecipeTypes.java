@@ -1,8 +1,6 @@
 package com.footdablit2310.footorganicprocessing.registry;
 
 import com.footdablit2310.footorganicprocessing.FootOrganicProcessing;
-import com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.recipe.CentrifugeRecipe;
-import com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.recipe.CentrifugeRecipeSerializer;
 import com.footdablit2310.footorganicprocessing.content.recipes.PTFRecipe;
 import com.footdablit2310.footorganicprocessing.content.recipes.SqueezerRecipe;
 
@@ -42,14 +40,7 @@ public class ModRecipeTypes {
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SqueezerRecipe>> SQUEEZER_SERIALIZER =
             SERIALIZERS.register("squeezer", SqueezerRecipe.Serializer::new);
 
-    // -------------------------
-    // Centrifuge
-    // -------------------------
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CentrifugeRecipe>> CENTRIFUGE =
-            RECIPE_TYPES.register("centrifuge", () -> new RecipeType<CentrifugeRecipe>() {});
 
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CentrifugeRecipe>> CENTRIFUGE_SERIALIZER =
-            SERIALIZERS.register("centrifuge", CentrifugeRecipeSerializer::new);
 
     public static void register() {}
 }
