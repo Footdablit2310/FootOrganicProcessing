@@ -1,92 +1,80 @@
 package com.footdablit2310.footorganicprocessing.registry;
 
 import com.footdablit2310.footorganicprocessing.FootOrganicProcessing;
-import com.footdablit2310.footorganicprocessing.content.items.ptf.CoilItem;
+import com.footdablit2310.footorganicprocessing.content.items.CoilItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
+
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
-import com.tterrag.registrate.Registrate;
 
-public class ModItems {
-    public static final Registrate REGISTRATE = 
-        FootOrganicProcessing.REGISTRATE;
+public final class ModItems {
 
-    public static final ItemEntry<Item> STICKY_RESIDUE =
-            REGISTRATE.item("sticky_residue", Item::new)
-                    .properties(p -> p.stacksTo(64))
-                    .register();
-    public static final ItemEntry<Item> BIOMASS =
-            REGISTRATE.item("biomass", Item::new)
-                    .properties(p -> p.stacksTo(64))
-                    .register();
-    public static final ItemEntry<Item> PLASTIC =
-            REGISTRATE.item("plastic", Item::new)
-                    .properties(p -> p.stacksTo(64))
-                    .register();
-    public static final ItemEntry<Item> RESIN =
-            REGISTRATE.item("resin", Item::new)
-                    .properties(p -> p.stacksTo(64))
-                    .register();
-    public static final ItemEntry<Item> SPIRIT_GLUE =
-            REGISTRATE.item("spirit_glue", Item::new)
-                    .register();
+    private static ItemEntry<Item> item(String id) {
+        return FootOrganicProcessing.REGISTRATE.item(id, Item::new)
+                .properties(p -> p.stacksTo(64))
+                .register();
+    }
 
-    // Industrial
-    public static final ItemEntry<Item> ULTRA_STURDY_SHEET =
-            REGISTRATE.item("ultra_sturdy_sheet", Item::new)
-                    .register();
+    // Basic materials
+    public static final ItemEntry<Item> BIOMASS = item("biomass");
+    public static final ItemEntry<Item> RESIN = item("resin");
+    public static final ItemEntry<Item> WAX = item("wax");
+    public static final ItemEntry<Item> BOWL_OF_MASH = item("bowl_of_mash");
 
-    // -------------------------------------------------------------------------
-    // COILS (F3)
-    // -------------------------------------------------------------------------
+    // Plastics
+    public static final ItemEntry<Item> PLASTIC = item("plastic");
 
-    public static final ItemEntry<CoilItem> COIL_T1_H = REGISTRATE.item("coil_t1_h", props ->
-            new CoilItem(props,
-                    1000,      // durability
-                    750,       // heat output
-                    1500,      // heat resistance
-                    0.0000015  // wear chance
-            )
-    ).register();
+    // Residues / glue
+    public static final ItemEntry<Item> STICKY_RESIDUE = item("sticky_residue");
+    public static final ItemEntry<Item> SPIRIT_GLUE = item("spirit_glue");
 
-    public static final ItemEntry<CoilItem> COIL_T2_SH = REGISTRATE.item("coil_t2_sh", props ->
-            new CoilItem(props,
-                    1500,
-                    1500,
-                    2250,
-                    0.000003
-            )
-    ).register();
+    // Sheets / blocks
+    public static final ItemEntry<Item> ULTRA_STURDY_SHEET = item("ultra_sturdy_sheet");
 
-    public static final ItemEntry<CoilItem> COIL_T3_UH = REGISTRATE.item("coil_t3_uh", props ->
-            new CoilItem(props,
-                    2000,
-                    3000,
-                    3000,
-                    0.000006
-            )
-    ).register();
+    // Coils
+    // Coils
+    public static final ItemEntry<CoilItem> COIL_T1_H =
+        FootOrganicProcessing.REGISTRATE.item("coil_t1_h",
+            p -> new CoilItem(p.stacksTo(64),
+                1,          // tier
+                750,        // heat output
+                1500,       // heat resistance
+                0.0000015   // wear rate
+            )).register();
 
-    public static final ItemEntry<CoilItem> COIL_T3R_UH_R = REGISTRATE.item("coil_t3r_uh_r", props ->
-            new CoilItem(props,
-                    4000,
-                    3000,
-                    12000,
-                    0.0000006
-            )
-    ).register();
+    public static final ItemEntry<CoilItem> COIL_T2_SH =
+        FootOrganicProcessing.REGISTRATE.item("coil_t2_sh",
+            p -> new CoilItem(p.stacksTo(64),
+                2,
+                1500,
+                2250,
+                0.0000030
+            )).register();
 
-    // Casings (item form only)
-    public static final ItemEntry<Item> CASING_T1 =
-            REGISTRATE.item("casing_t1", Item::new)
-                    .register();
+    public static final ItemEntry<CoilItem> COIL_T3_UH =
+        FootOrganicProcessing.REGISTRATE.item("coil_t3_uh",
+            p -> new CoilItem(p.stacksTo(64),
+                3,
+                3000,
+                3000,
+                0.0000060
+            )).register();
 
-    public static final ItemEntry<Item> CASING_T2 =
-            REGISTRATE.item("casing_t2", Item::new)
-                    .register();
+    public static final ItemEntry<CoilItem> COIL_T3R_UHR =
+        FootOrganicProcessing.REGISTRATE.item("coil_t3r_uhr",
+            p -> new CoilItem(p.stacksTo(64),
+                4,
+                3000,
+                12000,
+                0.0000006
+            )).register();
 
-    public static final ItemEntry<Item> CASING_T3 =
-            REGISTRATE.item("casing_t3", Item::new)
-                    .register();
 
-    public static void register() {}
+    // Bucket Items
+    public static final ItemEntry<BucketItem> SYNGAS_BUCKET =
+        FootOrganicProcessing.REGISTRATE.item("syngas_bucket",
+                p -> new BucketItem(ModFluids.SYNGAS.get(), p.stacksTo(1)))
+                .register();
+
+
 }

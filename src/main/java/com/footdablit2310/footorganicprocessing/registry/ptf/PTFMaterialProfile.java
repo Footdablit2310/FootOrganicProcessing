@@ -4,7 +4,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public record PTFMaterialProfile(
@@ -12,8 +11,7 @@ public record PTFMaterialProfile(
         Set<Block> blocks,
         Set<Fluid> fluids
 ) {
-
     public static PTFMaterialProfile empty() {
-        return new PTFMaterialProfile(new HashSet<>(), new HashSet<>(), new HashSet<>());
+        return new PTFMaterialProfile(Set.of(), Set.of(), Set.of());
     }
 }

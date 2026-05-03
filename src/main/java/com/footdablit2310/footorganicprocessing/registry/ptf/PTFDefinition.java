@@ -1,6 +1,6 @@
 package com.footdablit2310.footorganicprocessing.registry.ptf;
 
-import com.footdablit2310.footlib.api.registry.helpers.multiblock.MultiBlockDefinition;
+import com.footdablit2310.footlib.api.common.multiblock.MultiBlockDefinition;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;

@@ -69,3 +69,9 @@ hs_err_pid*
 replay_pid*
 
 # this is a neoforge modding environment, so we ignore the generated sources and resources
+# Workspace specific files
+*.py
+*.pyc
+*.pyi
+*.ps1
+footpipeline.toml

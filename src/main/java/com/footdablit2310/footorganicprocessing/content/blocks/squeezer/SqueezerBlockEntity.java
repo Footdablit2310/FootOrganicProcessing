@@ -131,4 +131,21 @@ public class SqueezerBlockEntity extends KineticBlockEntity {
     public ItemStackHandler getItemHandler() {
         return items;
     }
+    public enum SqueezerMode {
+        SQUEEZING,
+        COMPRESSING
+    }
+
+    private SqueezerMode mode = SqueezerMode.SQUEEZING;
+
+    public void setMode(SqueezerMode mode) {
+        this.mode = mode;
+        setChanged();
+    }
+
+    public SqueezerMode getMode() {
+        return mode;
+    }
+
+    // remember to save/load `mode` in NBT if you care about persistence
 }

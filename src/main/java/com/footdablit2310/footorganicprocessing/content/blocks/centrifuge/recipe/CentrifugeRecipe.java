@@ -3,14 +3,14 @@ package com.footdablit2310.footorganicprocessing.content.blocks.centrifuge.recip
 import com.footdablit2310.footorganicprocessing.registry.ModRecipeTypes;
 import com.footdablit2310.footlib.api.common.heat.HeatTier;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.HolderLookup;
 
 import java.util.List;
 
@@ -21,36 +21,53 @@ public class CentrifugeRecipe implements Recipe<RecipeInput> {
     private final List<ItemStack> outputs;
     private final HeatTier requiredHeat;
 
-    public CentrifugeRecipe(ResourceLocation id, ItemStack input, List<ItemStack> outputs, HeatTier requiredHeat) {
+    public CentrifugeRecipe(ResourceLocation id,
+                            ItemStack input,
+                            List<ItemStack> outputs,
+                            HeatTier requiredHeat) {
         this.id = id;
         this.input = input;
         this.outputs = outputs;
         this.requiredHeat = requiredHeat;
     }
 
-    public ItemStack getInput() { return input; }
-    public List<ItemStack> getOutputs() { return outputs; }
-    public HeatTier getRequiredHeat() { return requiredHeat; }
+    public ResourceLocation getId() {
+        return id;
+    }
+
+    public ItemStack getInput() {
+        return input;
+    }
+
+    public List<ItemStack> getOutputs() {
+        return outputs;
+    }
+
+    public HeatTier getRequiredHeat() {
+        return requiredHeat;
+    }
 
     @Override
     public boolean matches(RecipeInput inv, Level level) {
-        return true; // BE handles matching
+        // BE handles matching
+        return true;
     }
 
     @Override
     public ItemStack assemble(RecipeInput inv, HolderLookup.Provider provider) {
-        return ItemStack.EMPTY; // BE handles output
+        // BE handles output
+        return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canCraftInDimensions(int w, int h) { return false; }
+    public boolean canCraftInDimensions(int w, int h) {
+        return false;
+    }
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider provider) {
         return outputs.isEmpty() ? ItemStack.EMPTY : outputs.get(0);
     }
-
-    public ResourceLocation getId() { return id; }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
@@ -61,5 +78,4 @@ public class CentrifugeRecipe implements Recipe<RecipeInput> {
     public RecipeType<?> getType() {
         return ModRecipeTypes.CENTRIFUGE.get();
     }
-
 }
