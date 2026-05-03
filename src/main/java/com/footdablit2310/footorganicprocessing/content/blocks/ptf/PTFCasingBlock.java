@@ -22,6 +22,6 @@ public class PTFCasingBlock extends Block implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModBlockEntities.PTF_CASING.get().create(pos, state);
+        return new PTFCasingBlockEntity(ModBlockEntities.PTF_CASING.get(), pos, state);
     }
 }

@@ -14,7 +14,6 @@ public class PTFCasingBlockEntity extends BlockEntity {
 
     private final int casingTier;
 
-    // The actual inventory
     private final ItemStackHandler inventory = new ItemStackHandler(1) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -39,15 +38,12 @@ public class PTFCasingBlockEntity extends BlockEntity {
         this(ModBlockEntities.PTF_CASING.get(), pos, state);
     }
 
-    // Exposed to capability provider
+    // Capability provider uses this
     public ItemStackHandler getInventory() {
         return inventory;
     }
 
-    // -----------------------------
     // Inventory logic
-    // -----------------------------
-
     public ItemStack getCoilStack() {
         return inventory.getStackInSlot(0);
     }
@@ -80,10 +76,7 @@ public class PTFCasingBlockEntity extends BlockEntity {
         return null;
     }
 
-    // -----------------------------
     // Heat + resistance
-    // -----------------------------
-
     public int getHeatOutput() {
         ItemStack stack = inventory.getStackInSlot(0);
         return stack.getItem() instanceof CoilItem c ? c.getHeatOutput() : 0;
@@ -103,10 +96,7 @@ public class PTFCasingBlockEntity extends BlockEntity {
         };
     }
 
-    // -----------------------------
     // Wear
-    // -----------------------------
-
     private double getFailureChancePerTick() {
         ItemStack stack = inventory.getStackInSlot(0);
         return stack.getItem() instanceof CoilItem c ? c.getWearRate() : 0;
@@ -130,10 +120,6 @@ public class PTFCasingBlockEntity extends BlockEntity {
     public boolean isFailed() {
         return failed;
     }
-
-    // -----------------------------
-    // Active flag
-    // -----------------------------
 
     public void setActive(boolean value) {
         this.active = value;
