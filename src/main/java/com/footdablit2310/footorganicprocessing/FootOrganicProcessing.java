@@ -2,6 +2,7 @@ package com.footdablit2310.footorganicprocessing;
 
 import com.footdablit2310.footorganicprocessing.datagen.FootOPDataGen;
 import com.footdablit2310.footorganicprocessing.registry.ModBlockEntities;
+import com.footdablit2310.footorganicprocessing.registry.ModCapabilities;
 import com.tterrag.registrate.Registrate;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -13,6 +14,7 @@ public class FootOrganicProcessing {
 
     // The ONE TRUE Registrate instance
     public static final Registrate REGISTRATE = Registrate.create(MOD_ID);
+    
 
     public FootOrganicProcessing(IEventBus modEventBus) {
 
@@ -22,5 +24,8 @@ public class FootOrganicProcessing {
         ModBlockEntities.register();
         modEventBus.addListener(FootOPDataGen::gatherData);
         //TODO: Register other content (e.g. containers, recipes, etc.) as needed
+        modEventBus.register(ModCapabilities.class);
+        
+
     }
 }

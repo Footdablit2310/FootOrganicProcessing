@@ -12,7 +12,7 @@ public class ModBlockEntities {
 
     public static final Registrate REGISTRATE = FootOrganicProcessing.REGISTRATE;
 
-    public static final BlockEntityEntry<PTFControllerBlockEntity> PTF_CONTROLLER =
+    public static final BlockEntityEntry<BlockEntity> PTF_CONTROLLER =
             REGISTRATE.blockEntity("ptf_controller", PTFControllerBlockEntity::new)
                     .validBlocks(ModBlocks.PTF_CONTROLLER)
                     .register();
@@ -30,8 +30,6 @@ public class ModBlockEntities {
                         ModBlocks.CASING_T3
                 )
                 .register();
-
-
 
     public static void register() {}
 }

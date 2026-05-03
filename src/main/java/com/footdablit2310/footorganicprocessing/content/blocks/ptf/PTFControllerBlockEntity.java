@@ -1,223 +1,158 @@
 package com.footdablit2310.footorganicprocessing.content.blocks.ptf;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.footdablit2310.footorganicprocessing.content.items.CoilItem;
+import com.footdablit2310.footorganicprocessing.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PTFControllerBlockEntity extends BlockEntity {
 
-    // --- Core state ---
-    private int multiblockTier = 0;          // you set this from redstone or config
-    private int failsafeTicks = 0;
-
-    // --- Multiblock cache ---
-    private final List<PTFCasingBlockEntity> cachedCasings = new ArrayList<>();
-    private boolean structureValid = false;
+    private int currentHeat = 0;
+    private int maxAllowedHeat = 0;
+    private boolean validStructure = false;
+    private int currentTier = 0;
 
     public PTFControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
-    // --- TICK ---
+    public PTFControllerBlockEntity(BlockPos pos, BlockState state) {
+        this(ModBlockEntities.PTF_CONTROLLER.get(), pos, state);
+    }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PTFControllerBlockEntity be) {
         if (level.isClientSide) return;
 
-        // failsafe countdown
-        if (be.failsafeTicks > 0) {
-            be.failsafeTicks--;
-            if (be.failsafeTicks == 0) {
-                // allow restart after cooldown
-            }
-            return;
+        long time = level.getGameTime();
+
+        if (time % 20 == 0) {
+            be.revalidate();
         }
 
-        // recompute tier if you base it on redstone
-        be.updateTierFromRedstone();
-
-        if (!be.validateStructure()) {
-            be.shutdown();
-            return;
+        if (be.validStructure && time % 20 == 0) {
+            be.applyCoilWear();
         }
-
-        // at this point structure is valid and casings are active
-        // your processing / FE / heat logic goes here
     }
 
-    private void updateTierFromRedstone() {
+    private void revalidate() {
         if (level == null) return;
+
         int rs = level.getBestNeighborSignal(worldPosition);
-        // example mapping, adjust to your design
-        if (rs == 0) multiblockTier = 0;
-        else if (rs <= 2) multiblockTier = 1;
-        else if (rs <= 4) multiblockTier = 2;
-        else if (rs <= 6) multiblockTier = 3;
-        else if (rs <= 8) multiblockTier = 4;
-        else if (rs <= 12) multiblockTier = 5;
-        else multiblockTier = 6;
+        currentTier = Mth.clamp(rs, 1, 6);
+
+        List<PTFCasingBlockEntity> casings = findCasingsForTier(currentTier);
+
+        if (casings.isEmpty()) {
+            validStructure = false;
+            currentHeat = 0;
+            maxAllowedHeat = 0;
+            return;
+        }
+
+        if (!validateLayout(casings, currentTier)) {
+            validStructure = false;
+            currentHeat = 0;
+            maxAllowedHeat = 0;
+            return;
+        }
+
+        computeHeatAndResistance(casings);
+
+        if (currentHeat > maxAllowedHeat) {
+            validStructure = false;
+            currentHeat = 0;
+            return;
+        }
+
+        validStructure = true;
     }
 
-    private void shutdown() {
-        structureValid = false;
-        // disable all casings
-        for (PTFCasingBlockEntity casing : cachedCasings) {
-            casing.setActive(false);
-        }
-    }
+    private List<PTFCasingBlockEntity> findCasingsForTier(int tier) {
+        List<PTFCasingBlockEntity> result = new ArrayList<>();
+        if (level == null) return result;
 
-    // --- STRUCTURE VALIDATION ENTRYPOINT ---
-
-    private boolean validateStructure() {
-        cachedCasings.clear();
-        structureValid = false;
-
-        if (level == null) return false;
-        if (multiblockTier <= 0) return false;
-
-        int size = getGridSizeForTier(multiblockTier);
-        if (size <= 0) return false;
-
-        int half = size / 2;
-
-        // scan casings in the grid at controller Y
-        for (int dx = -half; dx <= half; dx++) {
-            for (int dz = -half; dz <= half; dz++) {
-                BlockPos p = worldPosition.offset(dx, 0, dz);
-                BlockEntity be = level.getBlockEntity(p);
-
-                if (!(be instanceof PTFCasingBlockEntity casing)) {
-                    return false; // missing casing
-                }
-
-                cachedCasings.add(casing);
-            }
-        }
-
-        // coils + casings compatibility
-        if (!validateCoilsAndCasings()) {
-            failsafeTicks = 200; // 10s at 20tps
-            return false;
-        }
-
-        // vertical conflict rule
-        if (!checkVerticalConflicts()) {
-            return false;
-        }
-
-        structureValid = true;
-
-        // enable all casings when structure is valid
-        for (PTFCasingBlockEntity casing : cachedCasings) {
-            casing.setActive(true);
-        }
-
-        return true;
-    }
-
-    // --- HELPERS ---
-
-    private int getGridSizeForTier(int tier) {
-        return switch (tier) {
+        int grid = switch (tier) {
             case 1 -> 1;
             case 2, 3 -> 3;
             case 4 -> 5;
             case 5 -> 9;
             case 6 -> 13;
-            default -> 0;
+            default -> 1;
         };
-    }
 
-    private boolean validateCoilsAndCasings() {
-        for (PTFCasingBlockEntity casing : cachedCasings) {
+        int radius = grid / 2;
 
-            if (casing.isFailed())
-                return false;
-
-            int coilHeat = casing.getHeatOutput();          // block-specific heat
-            int casingRes = casing.getHeatResistance();     // casing heat resistance
-            int coilRes = casing.getCoilHeatResistance();   // coil heat resistance
-
-            if (coilHeat <= 0)
-                return false; // missing coil
-
-            // coil must not exceed its own resistance
-            if (coilHeat > coilRes)
-                return false;
-
-            // coil must not exceed casing resistance
-            if (coilHeat > casingRes)
-                return false;
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dz = -radius; dz <= radius; dz++) {
+                BlockPos p = worldPosition.offset(dx, 0, dz);
+                BlockEntity be = level.getBlockEntity(p);
+                if (be instanceof PTFCasingBlockEntity casing) {
+                    result.add(casing);
+                }
+            }
         }
-        return true;
+
+        return result;
     }
 
-    /**
-     * PTFs may only intersect:
-     * - at the same Y level (heat can combine)
-     * - or outside vertical range (4)
-     * Any other vertical overlap within range is invalid.
-     */
-    private boolean checkVerticalConflicts() {
+    private boolean validateLayout(List<PTFCasingBlockEntity> casings, int tier) {
         if (level == null) return false;
 
-        int range = 4;
+        int grid = switch (tier) {
+            case 1 -> 1;
+            case 2, 3 -> 3;
+            case 4 -> 5;
+            case 5 -> 9;
+            case 6 -> 13;
+            default -> 1;
+        };
 
-        for (int dy = -range; dy <= range; dy++) {
-            if (dy == 0) continue;
+        int expected = grid * grid;
+        if (casings.size() != expected) return false;
 
-            BlockPos checkPos = worldPosition.above(dy);
-            BlockEntity be = level.getBlockEntity(checkPos);
+        int radius = grid / 2;
 
-            if (be instanceof PTFControllerBlockEntity other) {
-
-                if (!other.structureValid)
-                    continue;
-
-                // same Y-level → allowed (heat can sum)
-                if (dy == 0)
-                    continue;
-
-                // outside vertical range → allowed
-                if (Math.abs(dy) > range)
-                    continue;
-
-                // inside vertical range and different Y → conflict
-                return false;
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dz = -radius; dz <= radius; dz++) {
+                BlockPos p = worldPosition.offset(dx, 0, dz);
+                if (!(level.getBlockEntity(p) instanceof PTFCasingBlockEntity)) {
+                    return false;
+                }
             }
         }
 
         return true;
     }
 
-    // --- OPTIONAL: heat query API for overlap logic ---
+    private void computeHeatAndResistance(List<PTFCasingBlockEntity> casings) {
+        int totalHeat = 0;
+        int minResistance = Integer.MAX_VALUE;
 
-    /**
-     * Heat contributed by this PTF at a given block position,
-     * based on active casings only.
-     */
-    public int getHeatAt(BlockPos pos) {
-        int total = 0;
+        for (PTFCasingBlockEntity casing : casings) {
+            CoilItem coil = casing.getCoilData();
+            if (coil == null) continue;
 
-        for (PTFCasingBlockEntity casing : cachedCasings) {
-            if (!casing.isActive())
-                continue;
-
-            // you can refine this with a proper radius instead of manhattan
-            int dist = pos.distManhattan(casing.getBlockPos());
-            if (dist <= 4) { // example heat radius
-                total += casing.getHeatOutput();
-            }
+            totalHeat += coil.getHeatOutput();
+            minResistance = Math.min(minResistance, coil.getHeatResistance());
         }
 
-        return total;
+        if (minResistance == Integer.MAX_VALUE) {
+            totalHeat = 0;
+            minResistance = 0;
+        }
+
+        currentHeat = totalHeat;
+        maxAllowedHeat = minResistance;
     }
 
-    // you can later add:
-    // - getSummedHeatAt(pos) that iterates nearby controllers on same Y
-    // - block heat resistance checks using summed heat
+    private void applyCoilWear() {
+        // Wear is handled inside casing tick
+    }
 }
